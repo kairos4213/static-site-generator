@@ -1,6 +1,6 @@
 import unittest
 
-from inline import (
+from inline_md import (
     split_nodes_delimiter,
     extract_markdown_images,
     extract_markdown_links,
