@@ -77,8 +77,10 @@ def ul_block_to_html(markdown_block):
     list_items = markdown_block.split("\n")
     html_list = []
     for item in list_items:
-        item = item.lstrip("- ")
-        item = item.lstrip("* ")
+        if item.startswith("- "):
+            item.lstrip("- ")
+        if item.startswith("* "):
+            item.lstrip("* ")
         html_list.append(ParentNode("li", text_to_children(item)))
     html_node = ParentNode("ul", html_list)
     return html_node
@@ -160,9 +162,3 @@ def markdown_to_html_node(markdown):
 
     html_node = ParentNode("div", children)
     return html_node
-
-
-md_doc = f"# Heading\n\nThis is **some** text right here\nHere's more text\n\n## Heading 2\n\n### Heading 3\n\n#### Heading 4\n\n##### Heading 5\n\n###### heading 6\n\n```Some code will go here And here```\n\n1. One nice ordered list\n2. With **two** items\n\n* An unordered *italic* list\n- With Different ways to mark it\n- `And a line of code`\n\n>Finished with a nice *quote*\n>From your favorite noobie\n>Me - Newbster McGee".lower()
-
-node = markdown_to_html_node(md_doc)
-print(node.to_html())
